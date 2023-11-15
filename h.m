@@ -1,8 +1,6 @@
-function[Cp] = cp(delta,tau)
-
+function[h] = h(delta,tau)
 load constantes
-  Cp = -R.*tau.*tau.*(phi0_delta_delta(delta,tau)+phir_delta_delta(delta,tau))
-  +(1+delta.*phir_delta(delta,tau)-delta.*tau.*phir_delta_tau(delta,tau)).^2./
-  (1+2.*delta.*phir_delta(delta,tau)+delta.^2.*phir_delta_delta(delta,tau));
 
+  h = R*Tc/tau*(1 + tau*(phi0_tau(delta,tau) + phir_tau(delta,tau)) +  delta*phir_delta(delta,tau) );
 end
+

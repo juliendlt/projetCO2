@@ -1,4 +1,4 @@
-function[valeur] = Copy_of_phir_tau_tau(delta,tau)
+function[valeur] = phir_tau_tau(delta,tau)
 
 load constantes
   
@@ -11,5 +11,5 @@ valeur = sum(n_i(1:7).*t_i(1:7).*(t_i(1:7)-1).*delta.^(d_i(1:7)).*tau.^(t_i(1:7)
    (-2.*((1-tau)+ A_i(40:42) .* (  ((delta-1).^2).^(  1./(2.*beta_i(40:42))  ) )).*b_i(40:42).*(DELTA(delta,tau)).^(b_i(40:42)-1)).*...
     ( -2.*D_i(40:42).*(tau-1).*PSI(delta,tau) ))+...
     ((DELTA(delta,tau)).^...
-    b_i(40:42)).*((2.*D_i(40:42).*(tau-1)^2 - 1).*2.*D_i(40:42).*PSI(delta,tau) ))));
+    b_i(40:42)).*((2.*D_i(40:42).*(tau-1)^2 - 1).*2.*D_i(40:42).*PSI(delta,tau) ));
 end

@@ -1,8 +1,9 @@
-function[grandeur] = main(rho,T)
+function[grandeur] = main(T,rho)
 
-load constantes
-delta = rho/rhoc;
+load constantes;
+
+delta =  rho/rhoc;
 tau = Tc/T;
-grandeur=[p(delta,tau), u(delta,tau),s(delta,tau),cv(delta,tau),cp(delta,tau)]
+grandeur= s(delta,tau);
 
 end
