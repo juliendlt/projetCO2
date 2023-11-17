@@ -12,3 +12,6 @@ s
 p
 cv
 cp
+
+A faire :
+Erreur dans phir_delta_tau : Derniere somme complexe 

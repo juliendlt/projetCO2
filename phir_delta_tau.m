@@ -1,3 +1,4 @@
+%Erreur dans la derniere somme ! Nombre complexe
 function[valeur] = phir_delta_tau(delta,tau)
 
 load constantes
