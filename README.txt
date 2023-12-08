@@ -14,4 +14,4 @@ cv
 cp
 
 A faire :
-Erreur dans phir_delta_tau : Derniere somme complexe 
+Reecrire les fonctions phir
