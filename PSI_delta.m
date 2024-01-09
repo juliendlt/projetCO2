@@ -1,7 +1,8 @@
-function [outputArg1,outputArg2] = PSI_delta(inputArg1,inputArg2)
-%PSI_DELTA Summary of this function goes here
-%   Detailed explanation goes here
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+function[valeur]=PSI_delta(delta,tau)
+    load('constantes.mat','C_i')
+
+    valeur= -2*C_i(40)*(delta-1)*PSI(delta,tau);
+
 end
+
 

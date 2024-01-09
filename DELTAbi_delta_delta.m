@@ -1,7 +1,9 @@
-function [outputArg1,outputArg2] = DELTAbi_delta_delta(inputArg1,inputArg2)
-%DELTABI_DELTA_DELTA Summary of this function goes here
-%   Detailed explanation goes here
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+function[valeur]=DELTAbi_delta_delta(delta,tau,bi)
+
+    S1 = DELTA(delta,tau).^(bi-1).*DELTA_delta_delta(delta,tau);
+    S2 = (bi-1).*DELTA(delta,tau).^(bi-2).*DELTA_delta(delta,tau).^2;
+    
+    valeur=S1+S2;
+    
 end
 

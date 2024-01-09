@@ -1,12 +1,24 @@
 function[valeur] = phir_delta(delta,tau)
-load constantes
 
-  valeur = sum(n_i(1:7).*d_i(1:7).*delta.^(d_i(1:7)-1).*tau.^(t_i(1:7))) + ...
-      sum(n_i(8:34).*exp(-delta.^(c_i(8:34))).*(delta.^(d_i(8:34)-1).*tau.^(t_i(8:34)).*(d_i(8:34)-c_i(8:34).*delta.^(c_i(8:34))))) +...
-      sum(n_i(35:39).*delta.^(d_i(35:39)).*tau.^(t_i(35:39)).*exp(-alpha_i(35:39).*(delta-epsilon_i(35:39)).^2-beta_i(35:39).*(tau-gamma_i(35:39)).^2).*((d_i(35:39)./delta)-2.*alpha_i(35:39).*(delta-epsilon_i(35:39)))) +...
-      sum(n_i(40:42).*(((DELTA(delta,tau)).^b_i(40:42)).*...
-      (PSI(delta,tau) )+delta.*(-2.*C_i(40:42).*(delta-1).*exp(  -C_i(40:42).*(delta-1).^2 - D_i(40:42).*(tau-1).^2))+b_i(40:42).*(DELTA(delta,tau)).^(b_i(40:42)-1).*((delta-1)  .*  (     A_i(40:42).*((1-tau)+ A_i(40:42) .* (  ((delta-1).^2).^(  1./(2.*beta_i(40:42))  ) )).*( 2./beta_i(40:42) ).*( ((delta-1).^2).^((1/2.*beta_i(40:42))-1) ) + 2.*B_i(40:42).*a_i(40:42).*( (delta-1).^2 ).^(a_i(40:42)-1)    )).*delta.*...
-      (PSI(delta,tau) )));
+load('constantes.mat','n_i','t_i','d_i','c_i','alpha_i','epsilon_i','beta_i','gamma_i','b_i')
+
+  S1 = sum(n_i(1:7).*d_i(1:7).*delta.^(d_i(1:7)-1).*tau.^(t_i(1:7)));
+
+  P21 = @(i) n_i(i).*exp(-delta.^(c_i(i)));
+  P22 = @(i) delta.^(d_i(i)-1).*tau.^(t_i(i)).*(d_i(i)-c_i(i).*delta.^(c_i(i)));
+  S2 = sum(P21(8:34).*P22(8:34));
+  
+  e3 = @(i) -alpha_i(i).*(delta-epsilon_i(i)).^2-beta_i(i).*(tau-gamma_i(i)).^2;
+  P31 = @(i) n_i(i).*delta.^(d_i(i)).*tau.^(t_i(i)).*exp(e3(i));  
+  P32 = @(i) d_i(i)./delta-2.*alpha_i(i).*(delta-epsilon_i(i));
+  S3 = sum(P31(35:39).*P32(35:39)) ;
+     
+  
+  S41 = @(i) DELTA(delta,tau).^b_i(i).*(PSI(delta,tau)+delta.*PSI_delta(delta,tau));
+  S42 = @(i) DELTAbi_delta(delta,tau,b_i(i)).*delta.*PSI(delta,tau);
+  S4 = sum(n_i(40:42).*(S41(40:42)+S42(40:42)));
+
+  valeur = S1+S2+S3+S4;
   
 end
 
