@@ -5,7 +5,7 @@ load('constantes.mat','rhoc','Tc');
 delta =  rho./rhoc;
 tau = Tc./T;
 
-grandeur= phir_tau(delta,tau);
+grandeur= s(delta,tau);
 
 end
 

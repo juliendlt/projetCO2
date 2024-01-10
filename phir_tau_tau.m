@@ -1,15 +1,21 @@
 function[valeur] = phir_tau_tau(delta,tau)
 
-load constantes
-  
-valeur = sum(n_i(1:7).*t_i(1:7).*(t_i(1:7)-1).*delta.^(d_i(1:7)).*tau.^(t_i(1:7)-2)) +...
-    sum(n_i(8:34).*t_i(8:34).*(t_i(8:34)-1).*delta.^(d_i(8:34)).*tau.^(t_i(8:34)-2).*exp(-delta.^c_i(8:34))) +...
-    sum(n_i(35:39).*delta.^(d_i(35:39)).*tau.^(t_i(35:39)).*exp(-alpha_i(35:39).*(delta-epsilon_i(35:39)).^2-beta_i(35:39).*(tau-gamma_i(35:39)).^2).*...
-    ((t_i(35:39)./tau-2.*beta_i(35:39).*(tau-gamma_i(35:39))).^2-t_i(35:39)./(tau).^2-2.*beta_i(35:39))) +...
-    sum(n_i(40:42).*delta.*((2.*b_i(40:42).*(((1-tau)+ A_i(40:42) .* (  ((delta-1)^2).^(  1./(2*beta_i(40:42))  ) )).^2 + b_i(40:42).*(  (delta-1)^2  ).^A_i(40:42)).^(b_i(40:42)-1) + 4.*((1-tau)+ A_i(40:42) .* (  ((delta-1)^2).^(  1./(2*beta_i(40:42))  ) )).^2.*b_i(40:42).*(b_i(40:42)-1).*(((1-tau)+ A_i(40:42) .* (  ((delta-1)^2).^(  1./(2.*beta_i(40:42))  ) )).^2 + b_i(40:42).*(  (delta-1).^2  ).^A_i(40:42)).^(b_i(40:42)-2)).*...
-    exp(  -C_i(40:42).*(delta-1)^2 - D_i(40:42).*(tau-1).^2  )+2.*...
-   (-2.*((1-tau)+ A_i(40:42) .* (  ((delta-1).^2).^(  1./(2.*beta_i(40:42))  ) )).*b_i(40:42).*(DELTA(delta,tau)).^(b_i(40:42)-1)).*...
-    ( -2.*D_i(40:42).*(tau-1).*PSI(delta,tau) ))+...
-    ((DELTA(delta,tau)).^...
-    b_i(40:42)).*((2.*D_i(40:42).*(tau-1)^2 - 1).*2.*D_i(40:42).*PSI(delta,tau) ));
+load('constantes.mat','n_i','t_i','d_i','c_i','alpha_i','epsilon_i','beta_i','gamma_i','b_i')
+ 
+S1 = sum(n_i(1:7).*t_i(1:7).*(t_i(1:7)-1).*delta.^(d_i(1:7)).*tau.^(t_i(1:7)-2));
+
+S2 = sum(n_i(8:34).*t_i(8:34).*(t_i(8:34)-1).*delta.^(d_i(8:34)).*tau.^(t_i(8:34)-2).*exp(-delta.^c_i(8:34)));
+
+e3 = @(i) -alpha_i(i).*(delta-epsilon_i(i)).^2-beta_i(i).*(tau-gamma_i(i)).^2;
+P31 = @(i) n_i(i).*delta.^(d_i(i)).*tau.^(t_i(i)).*exp(e3(i));
+P32 = @(i) (t_i(i)./tau-2.*beta_i(i).*(tau-gamma_i(i))).^2-t_i(i)./(tau).^2-2.*beta_i(i);
+S3 = sum(P31(35:39).*P32(35:39));
+
+S41 = @(i) DELTAbi_tau_tau(delta,tau,b_i(i)).*PSI(delta,tau);
+S42 = @(i) 2*DELTAbi_tau(delta,tau,b_i(i)).*PSI_tau(delta,tau);
+S43 = @(i) DELTA(delta,tau).^b_i(i).*PSI_tau_tau(delta,tau);
+S4 = sum(n_i(40:42).*delta.*(S41(40:42) + S42(40:42) + S43(40:42)));
+
+valeur = S1+S2+S3+S4 ; 
+   
 end
