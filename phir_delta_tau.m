@@ -1,9 +1,13 @@
-%Erreur dans la derniere somme ! Nombre complexe
 function[valeur] = phir_delta_tau(delta,tau)
 
+%Importation des variables utilisées
 load('constantes.mat','n_i','t_i','d_i','c_i','alpha_i','epsilon_i','beta_i','gamma_i','b_i')
 
-  
+%Si : Somme n°i de la fonction
+%Si,j : Sous-somme n°j de la somme i
+%Pi,j : sous-produit n°j de la somme j
+%ei : Exposant utile dans la somme i
+
 S1 = sum(n_i(1:7).*d_i(1:7).*t_i(1:7).*delta.^(d_i(1:7)-1).*tau.^(t_i(1:7)-1));
 S2 =  sum(n_i(8:34).*exp(-delta.^c_i(8:34)).*delta.^(d_i(8:34)-1).*t_i(8:34).*tau.^(t_i(8:34)-1).*(d_i(8:34)-c_i(8:34).*delta.^c_i(8:34)));
 
