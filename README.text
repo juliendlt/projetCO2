@@ -1,0 +1,8 @@
+# Mode d'emploi du Livrable :
+1) Telecharger tous les fichiers et décompresser le dossier
+2) Lancer les fichiers sur Matlab
+3) Taper "main()" dans la commande de Matlab
+4) Une fenetre va s'ouvrir !
+5) Choisisser la grandeur souhaitée
+6) Renseigner la Temperature et masse volumique voulu
+7) Cliquer sur Calculer
