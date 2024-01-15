@@ -26,7 +26,7 @@ S3 = sum(P1(35:39).*P2(35:39));
 S41 = @(i) DELTA(delta,tau).^b_i(i).*(2.*PSI_delta(delta,tau)+delta.*PSI_delta_delta(delta,tau));
 S42 = @(i) 2.*DELTAbi_delta(delta,tau,b_i(i)).*(PSI(delta,tau)+delta.*PSI_delta(delta,tau));
 S43 = @(i) DELTAbi_delta_delta(delta,tau,b_i(i)).*delta.*PSI(delta,tau);
-S4 = sum(S41(40:42) + S42(40:42) + S43(40:42));
+S4 = sum(n_i(40:42).*(S41(40:42) + S42(40:42) + S43(40:42)));
 
 valeur = S1 + S2 + S3 +S4;
 end
